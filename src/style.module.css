@@ -1,0 +1,12 @@
+.empty {
+    color: red;
+}
+
+.todoItem {
+    display: flex;
+    gap: 10px;   
+}
+
+.done {
+    text-decoration: line-through;
+}
