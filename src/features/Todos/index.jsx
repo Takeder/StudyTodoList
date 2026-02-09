@@ -15,11 +15,22 @@ function searchTodos(tasks, search) {
   );
 }
 
+function changeFilter(filter, tasks) {
+  if (filter === 'all') {
+    return tasks;
+  } else if (filter === 'done') {
+    return tasks.filter((item) => item.status);
+  } else if (filter === 'active') {
+    return tasks.filter((item) => !item.status);
+  }
+}
+
 function Todos() {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     (async () => {
@@ -58,7 +69,11 @@ function Todos() {
     setTasks(updateTasks);
   };
 
-  const tasksData = searchTodos(tasks, search);
+  const changeFilterHandler = (e) => {
+    setFilter(e.target.value);
+  };
+
+  const tasksData = searchTodos(changeFilter(filter, tasks), search);
 
   return (
     <div className={style.todoApp}>
@@ -71,7 +86,7 @@ function Todos() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Поиск заметки..."
         />
-        <select className={style.filterSelect}>
+        <select className={style.filterSelect} onChange={changeFilterHandler}>
           <option value="all">Все</option>
           <option value="done">Выполненные</option>
           <option value="active">Невыполненные</option>
