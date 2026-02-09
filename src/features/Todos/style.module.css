@@ -1,104 +1,148 @@
 .todoApp {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
 }
 
 .title {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 /* Элементы управления в шапке (поиск, фильтр, переключатель) */
 .searchContainer {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
 }
 
 .searchInput {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 .filterSelect,
 .modeToggle {
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    background-color: #6a0dad;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #6a0dad;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 /* Стили для списка задач */
 .taskList {
-    list-style: none;
+  list-style: none;
 }
 
 .taskItem {
-    display: flex;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  justify-content: space-between;
 }
 
 .taskItem:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
-.taskItem input[type="checkbox"] {
-    margin-right: 15px;
-    height: 20px;
-    width: 20px;
-    cursor: pointer;
-    accent-color: #6a0dad;
+.taskItem input[type='checkbox'] {
+  margin-right: 15px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  accent-color: #6a0dad;
 }
 
 .taskItem label {
-    flex-grow: 1;
-    cursor: pointer;
+  flex-grow: 1;
+  cursor: pointer;
 }
 
 .taskItem.completed label {
-    text-decoration: line-through;
-    color: #aaa;
+  text-decoration: line-through;
+  color: #aaa;
 }
 
 .actionsContainer button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    color: #aaa;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  color: #aaa;
 }
 
 .actionsContainer button:hover {
-    color: #333;
+  color: #333;
 }
 
 /* Кнопка добавления */
 .addButton {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #6a0dad;
-    color: white;
-    font-size: 30px;
-    border: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #6a0dad;
+  color: white;
+  font-size: 30px;
+  border: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* Modal */
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 130px;
+}
+
+.modalTitle {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.addTaskInput {
+  width: 100%;
+  margin-top: 25px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.btn {
+  text-transform: uppercase;
+  font-size: 18px;
+  padding: 10px 22px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.8;
+  cursor: default;
+}
+
+.applyBtn {
+  background-color: #6c63ff;
+  color: white;
+}
+
+.cancelBtn {
+  background-color: white;
+  color: #6c63ff;
 }

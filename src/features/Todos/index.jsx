@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import cn from 'classnames';
+
+import { Modal } from '../../shared/ui/modal/modal';
 
 import { getTodos } from './model';
 
@@ -24,6 +27,7 @@ function changeFilter(filter, tasks) {
     return tasks.filter((item) => !item.status);
   }
 }
+const modalRoot = document.getElementById('root');
 
 function Todos() {
   const [task, setTask] = useState('');
@@ -31,6 +35,7 @@ function Todos() {
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState('all');
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -49,6 +54,7 @@ function Todos() {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       addTask();
+      setIsOpen(false);
     }
   };
 
@@ -81,6 +87,7 @@ function Todos() {
       <div className={style.searchContainer}>
         <input
           type="text"
+          name="search-task"
           className={style.searchInput}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -129,7 +136,45 @@ function Todos() {
           })
         )}
       </ul>
-      <button className={style.addButton}>+</button>
+      <button onClick={() => setIsOpen(!isOpen)} className={style.addButton}>
+        +
+      </button>
+      {createPortal(
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <>
+            <h2 className={style.modalTitle}>New Note</h2>
+            <input
+              name="add-task"
+              type="text"
+              autoFocus
+              className={style.addTaskInput}
+              onKeyDown={handleKeyDown}
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+              placeholder="Добавить задачу"
+            />
+            <div className={style.modalActions}>
+              <button
+                className={cn(style.btn, style.cancelBtn)}
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                disabled={task.length === 0}
+                className={cn(style.btn, style.applyBtn)}
+                onClick={() => {
+                  addTask();
+                  setIsOpen(false);
+                }}
+              >
+                Apply
+              </button>
+            </div>
+          </>
+        </Modal>,
+        modalRoot
+      )}
     </div>
   );
 }
