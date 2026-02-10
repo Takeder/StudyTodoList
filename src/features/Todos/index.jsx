@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Modal from './Modal';
 
 import cn from 'classnames';
 
@@ -31,6 +32,7 @@ function Todos() {
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState('all');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -41,16 +43,16 @@ function Todos() {
     })();
   }, []);
 
-  const addTask = () => {
-    setTasks([...tasks, { id: Date.now(), title: task, status: false }]);
-    setTask('');
-  };
+  // const addTask = () => {
+  //   setTasks([...tasks, { id: Date.now(), title: task, status: false }]);
+  //   setTask('');
+  // };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      addTask();
-    }
-  };
+  // const handleKeyDown = (e) => {
+  //   if (e.key === 'Enter') {
+  //     addTask();
+  //   }
+  // };
 
   const deleTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
@@ -74,6 +76,14 @@ function Todos() {
   };
 
   const tasksData = searchTodos(changeFilter(filter, tasks), search);
+
+  // Функция срабатывает при нажатии APPLY в модальном окне
+  const handleAddTask = (text) => {
+    if (text.trim()) {
+      setTasks([...tasks, { id: Date.now(), title: text, status: false }]); // Добавляем новую заметку в список
+    }
+    setIsModalOpen(false); // Закрываем окно
+  };
 
   return (
     <div className={style.todoApp}>
@@ -129,7 +139,15 @@ function Todos() {
           })
         )}
       </ul>
-      <button className={style.addButton}>+</button>
+      <button className={style.addButton} onClick={() => setIsModalOpen(true)}>
+        +
+      </button>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onApply={handleAddTask}
+      />
     </div>
   );
 }
