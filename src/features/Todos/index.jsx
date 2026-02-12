@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Modal from './Modal';
 
 import cn from 'classnames';
@@ -33,6 +33,8 @@ function Todos() {
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editTaskId, setEditTaskId] = useState(null);
+  const [editTaskValue, setEditTaskValue] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -43,16 +45,24 @@ function Todos() {
     })();
   }, []);
 
-  // const addTask = () => {
-  //   setTasks([...tasks, { id: Date.now(), title: task, status: false }]);
-  //   setTask('');
-  // };
-
-  // const handleKeyDown = (e) => {
-  //   if (e.key === 'Enter') {
-  //     addTask();
-  //   }
-  // };
+  const editHandler = (id) => {
+    if (editTaskId) {
+      const updateTasks = tasks.map((item) => {
+        if (item.id === editTaskId) {
+          return {
+            ...item,
+            title: editTaskValue,
+          };
+        }
+        return item;
+      });
+      setTasks(updateTasks);
+      setEditTaskValue('');
+      setEditTaskId(null);
+    } else {
+      setEditTaskId(id);
+    }
+  };
 
   const deleTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
@@ -122,9 +132,22 @@ function Todos() {
                   id={`note${item.id}`}
                   checked={item.status}
                 />
-                <label htmlFor={`note${item.id}`}>{item.title}</label>
+                {editTaskId === item.id ? (
+                  <input
+                    value={editTaskValue}
+                    onChange={(e) => setEditTaskValue(e.target.value)}
+                    type="text"
+                  />
+                ) : (
+                  <label htmlFor={`note${item.id}`}>{item.title}</label>
+                )}
                 <span className={style.actionsContainer}>
-                  <button className="edit-btn">✏️</button>
+                  <button
+                    className="edit-btn"
+                    onClick={() => editHandler(item.id)}
+                  >
+                    ✏️
+                  </button>
                   <button
                     onClick={() => {
                       deleTask(item.id);
