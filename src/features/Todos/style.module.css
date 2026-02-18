@@ -1,104 +1,115 @@
 .todoApp {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  transition: all 0.3s ease;
 }
 
 .title {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 20px;
 }
 
 /* Элементы управления в шапке (поиск, фильтр, переключатель) */
 .searchContainer {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
 }
 
 .searchInput {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
 }
 
 .filterSelect,
 .modeToggle {
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    background-color: #6a0dad;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #6a0dad;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 /* Стили для списка задач */
 .taskList {
-    list-style: none;
+  list-style: none;
+  padding: 0;
 }
 
 .taskItem {
-    display: flex;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border-color);
+  justify-content: space-between;
 }
 
 .taskItem:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
-.taskItem input[type="checkbox"] {
-    margin-right: 15px;
-    height: 20px;
-    width: 20px;
-    cursor: pointer;
-    accent-color: #6a0dad;
+.taskItem input[type='checkbox'] {
+  margin-right: 15px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  accent-color: #6a0dad;
 }
 
 .taskItem label {
-    flex-grow: 1;
-    cursor: pointer;
+  flex-grow: 1;
+  cursor: pointer;
+  color: var(--text-primary);
 }
 
 .taskItem.completed label {
-    text-decoration: line-through;
-    color: #aaa;
+  text-decoration: line-through;
+  color: var(--text-secondary);
 }
 
 .actionsContainer button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    color: #aaa;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  color: var(--text-secondary);
+  font-size: 18px;
 }
 
 .actionsContainer button:hover {
-    color: #333;
+  filter: brightness(1.2);
 }
 
 /* Кнопка добавления */
 .addButton {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #6a0dad;
-    color: white;
-    font-size: 30px;
-    border: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #6a0dad;
+  color: white;
+  font-size: 30px;
+  border: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
