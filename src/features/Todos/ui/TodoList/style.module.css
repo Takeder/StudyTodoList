@@ -1,0 +1,48 @@
+.taskList {
+  list-style: none;
+  padding: 0;
+}
+
+.taskItem {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border-color);
+  justify-content: space-between;
+}
+
+.taskItem:last-child {
+  border-bottom: none;
+}
+
+.taskItem input[type='checkbox'] {
+  margin-right: 15px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  accent-color: #6a0dad;
+}
+
+.taskItem label {
+  flex-grow: 1;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.taskItem.completed label {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.actionsContainer button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  color: var(--text-secondary);
+  font-size: 18px;
+}
+
+.actionsContainer button:hover {
+  filter: brightness(1.2);
+}
