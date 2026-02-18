@@ -1,52 +1,27 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import Modal from './Modal';
+import { TodoList } from './ui/TodoList';
 
-import cn from 'classnames';
+import Modal from './ui/Modal';
 
 import { getTodos } from './model';
 
 import style from './style.module.css';
 import { useTheme } from '../../app/themProvider';
 
-function searchTodos(tasks, search) {
-  if (search === '') {
-    return tasks;
-  }
-  return tasks.filter((item) =>
-    item.title.trim().toLowerCase().includes(search.trim().toLowerCase())
-  );
-}
-
-function changeFilter(filter, tasks) {
-  if (filter === 'all') {
-    return tasks;
-  } else if (filter === 'done') {
-    return tasks.filter((item) => item.status);
-  } else if (filter === 'active') {
-    return tasks.filter((item) => !item.status);
-  }
-}
+import { changeFilter, searchTodos } from './lib';
+import { useTasks } from './model/hooks/useTasks';
 
 function Todos() {
-  const [task, setTask] = useState('');
-  const [tasks, setTasks] = useState([]);
   const [search, setSearch] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+
   const [filter, setFilter] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
   const [editTaskValue, setEditTaskValue] = useState('');
   const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const result = await getTodos();
-      setTasks(result);
-      setIsLoading(false);
-    })();
-  }, []);
+  const { tasks, isLoading, setTasks } = useTasks();
 
   const editHandler = (id) => {
     if (editTaskId) {
@@ -100,6 +75,10 @@ function Todos() {
     setIsModalOpen(false); // Закрываем окно
   };
 
+  const editTaskHandler = (e) => {
+    setEditTaskValue(e.target.value);
+  };
+
   return (
     <div className={style.todoApp}>
       <h1 className={style.title}>TODO LIST</h1>
@@ -120,55 +99,20 @@ function Todos() {
           {theme === 'light' ? '🌙' : '☀️'}
         </button>
       </div>
-      <ul className={style.taskList}>
-        {isLoading ? (
-          <p>Загрузка..</p>
-        ) : (
-          tasksData.map((item) => {
-            return (
-              <li
-                key={item.id}
-                className={cn(style.taskItem, {
-                  //пакет для удобства объединения стилей в одну строку
-                  [style.completed]: item.status, //если статус true, то будет добавляться статус completed
-                })}
-              >
-                <input
-                  onChange={() => changeStatus(item.id)}
-                  type="checkbox"
-                  id={`note${item.id}`}
-                  checked={item.status}
-                />
-                {editTaskId === item.id ? (
-                  <input
-                    value={editTaskValue}
-                    onChange={(e) => setEditTaskValue(e.target.value)}
-                    type="text"
-                  />
-                ) : (
-                  <label htmlFor={`note${item.id}`}>{item.title}</label>
-                )}
-                <span className={style.actionsContainer}>
-                  <button
-                    className="edit-btn"
-                    onClick={() => editHandler(item.id)}
-                  >
-                    ✏️
-                  </button>
-                  <button
-                    onClick={() => {
-                      deleTask(item.id);
-                    }}
-                    className="delete-btn"
-                  >
-                    🗑️
-                  </button>
-                </span>
-              </li>
-            );
-          })
-        )}
-      </ul>
+      {isLoading ? (
+        <p>Загрузка</p>
+      ) : (
+        <TodoList
+          items={tasksData}
+          changeStatus={changeStatus}
+          editTaskValue={editTaskValue}
+          editTaskHandler={editTaskHandler}
+          clickEditHandler={editHandler}
+          deleteTask={deleTask}
+          editTaskId={editTaskId}
+        />
+      )}
+
       <button className={style.addButton} onClick={() => setIsModalOpen(true)}>
         +
       </button>
