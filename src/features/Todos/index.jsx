@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+
 import Modal from './Modal';
 
 import cn from 'classnames';
@@ -6,6 +7,7 @@ import cn from 'classnames';
 import { getTodos } from './model';
 
 import style from './style.module.css';
+import { useTheme } from '../../app/themProvider';
 
 function searchTodos(tasks, search) {
   if (search === '') {
@@ -35,6 +37,7 @@ function Todos() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
   const [editTaskValue, setEditTaskValue] = useState('');
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     (async () => {
@@ -60,7 +63,9 @@ function Todos() {
       setEditTaskValue('');
       setEditTaskId(null);
     } else {
+      const taskToEdit = tasks.find((t) => t.id === id);
       setEditTaskId(id);
+      setEditTaskValue(taskToEdit.title); // Подставляем текст, чтобы не было пусто
     }
   };
 
@@ -111,7 +116,9 @@ function Todos() {
           <option value="done">Выполненные</option>
           <option value="active">Невыполненные</option>
         </select>
-        <button className={style.modeToggle}>🌙</button>
+        <button className={style.modeToggle} onClick={toggleTheme}>
+          {theme === 'light' ? '🌙' : '☀️'}
+        </button>
       </div>
       <ul className={style.taskList}>
         {isLoading ? (

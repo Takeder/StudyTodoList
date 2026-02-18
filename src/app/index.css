@@ -1,30 +1,60 @@
 :root {
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Переменные для светлой темы */
+  --bg-page: #f0f4f8;
+  --bg-card: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #888888;
+  --border-color: #eeeeee;
+  --bg-input: #ffffff;
+}
+/* Эти переменные подменятся, когда у провайдера будет класс .dark */
+.dark {
+  --bg-page: #121212;
+  --bg-card: #252525;
+  --text-primary: #f5f5f5;
+  --text-secondary: #aaaaaa;
+  --border-color: #444444;
+  --bg-input: #333333;
 }
 
 * {
-    box-sizing: border-box; /* Учитываем padding и border в общей ширине/высоте элемента */
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box; /* Учитываем padding и border в общей ширине/высоте элемента */
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f4f8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+  font-family: Arial, sans-serif;
+  /* Используем переменную для фона страницы */
+  background-color: var(--bg-page);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+}
+
+/* Обязательно примени переменную к классу темы, 
+   так как ThemeProvider оборачивает контент в div с этим класом */
+.light,
+.dark {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
