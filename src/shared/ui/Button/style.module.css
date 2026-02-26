@@ -1,0 +1,50 @@
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* Основная фиолетовая кнопка */
+.primary {
+  background-color: #6a0dad;
+  color: white;
+}
+
+.primary:hover {
+  filter: brightness(1.2);
+}
+
+/* Кнопка с рамкой (для CANCEL) */
+.outline {
+  background: transparent;
+  border: 2px solid #6a0dad;
+  color: #6a0dad;
+}
+
+.outline:hover {
+  background: rgba(106, 13, 173, 0.1);
+}
+
+/* Кнопка-иконка (для удаления/редактирования) */
+.ghost {
+  background: none;
+  padding: 5px;
+  color: var(--text-secondary);
+  font-size: 18px;
+}
+
+.ghost:hover {
+  color: var(--text-primary);
+}

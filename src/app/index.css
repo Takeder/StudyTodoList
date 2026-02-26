@@ -15,6 +15,9 @@
   --text-secondary: #888888;
   --border-color: #eeeeee;
   --bg-input: #ffffff;
+  --accent: #6a0dad;
+  --accent-hover: #8a2be2;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 /* Эти переменные подменятся, когда у провайдера будет класс .dark */
 .dark {
@@ -34,13 +37,14 @@
 
 body {
   font-family: Arial, sans-serif;
+  transition: var(--transition);
   /* Используем переменную для фона страницы */
   background-color: var(--bg-page);
+  color: var(--text-primary);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  transition: background-color 0.3s ease;
 }
 
 /* Обязательно примени переменную к классу темы, 

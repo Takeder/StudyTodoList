@@ -9,6 +9,8 @@
   padding: 15px 0;
   border-bottom: 1px solid var(--border-color);
   justify-content: space-between;
+  min-height: 60px; /* Фиксированная высота, чтобы список не «прыгал» при редактировании */
+  gap: 15px;
 }
 
 .taskItem:last-child {
@@ -23,10 +25,23 @@
   accent-color: #6a0dad;
 }
 
+.editInput {
+  flex: 1;
+  padding: 5px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
 .taskItem label {
   flex-grow: 1;
   cursor: pointer;
   color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.4;
+  transition: color 0.2s;
 }
 
 .taskItem.completed label {
@@ -34,15 +49,21 @@
   color: var(--text-secondary);
 }
 
-.actionsContainer button {
-  background: none;
-  border: none;
-  cursor: pointer;
+.actionsContainer {
+  display: flex; /* Включаем флекс */
+  flex-direction: row; /* Выстраиваем в ряд */
+  gap: 8px; /* Расстояние между кнопками */
+  align-items: center;
+  flex-shrink: 0; /* Запрещаем контейнеру сжиматься, чтобы кнопки не улетали */
   margin-left: 10px;
-  color: var(--text-secondary);
-  font-size: 18px;
 }
 
-.actionsContainer button:hover {
-  filter: brightness(1.2);
+/* Убедимся, что сами кнопки в этом контейнере не имеют лишних отступов */
+.actionsContainer button {
+  margin: 0;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px; /* Чтобы кнопки были одинаковыми */
 }

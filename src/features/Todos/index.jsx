@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import { TodoList } from './ui/TodoList';
 
 import Modal from './ui/Modal';
-
-import { getTodos } from './model';
+import { Button } from '../../shared/ui/Button';
 
 import style from './style.module.css';
 import { useTheme } from '../../app/themProvider';
@@ -23,24 +22,26 @@ function Todos() {
 
   const { tasks, isLoading, setTasks } = useTasks();
 
+  // Оптимизируем вычисления: фильтруем и ищем только когда меняются tasks, filter или search
+  // const filteredTasks = useMemo(() => {
+  //   return searchTodos(changeFilter(filter, tasks), search);
+  // }, [tasks, filter, search]);
+
   const editHandler = (id) => {
-    if (editTaskId) {
-      const updateTasks = tasks.map((item) => {
-        if (item.id === editTaskId) {
-          return {
-            ...item,
-            title: editTaskValue,
-          };
-        }
-        return item;
-      });
-      setTasks(updateTasks);
-      setEditTaskValue('');
+    if (editTaskId === id) {
+      // Если нажали "сохранить" на том же ID
+      if (editTaskValue.trim()) {
+        setTasks((prev) =>
+          prev.map((t) => (t.id === id ? { ...t, title: editTaskValue } : t))
+        );
+      }
       setEditTaskId(null);
+      setEditTaskValue('');
     } else {
+      // Вход в режим редактирования
       const taskToEdit = tasks.find((t) => t.id === id);
       setEditTaskId(id);
-      setEditTaskValue(taskToEdit.title); // Подставляем текст, чтобы не было пусто
+      setEditTaskValue(taskToEdit.title);
     }
   };
 
@@ -90,14 +91,22 @@ function Todos() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Поиск заметки..."
         />
-        <select className={style.filterSelect} onChange={changeFilterHandler}>
+        <select
+          className={style.filterSelect}
+          value={filter}
+          onChange={changeFilterHandler}
+        >
           <option value="all">Все</option>
           <option value="done">Выполненные</option>
           <option value="active">Невыполненные</option>
         </select>
-        <button className={style.modeToggle} onClick={toggleTheme}>
+        <Button
+          variant="primary"
+          className={style.modeToggle}
+          onClick={toggleTheme}
+        >
           {theme === 'light' ? '🌙' : '☀️'}
-        </button>
+        </Button>
       </div>
       {isLoading ? (
         <p>Загрузка</p>
@@ -113,9 +122,13 @@ function Todos() {
         />
       )}
 
-      <button className={style.addButton} onClick={() => setIsModalOpen(true)}>
+      <Button
+        variant="primary"
+        className={style.floatingAddBtn}
+        onClick={() => setIsModalOpen(true)}
+      >
         +
-      </button>
+      </Button>
 
       <Modal
         isOpen={isModalOpen}
