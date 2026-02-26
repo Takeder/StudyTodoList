@@ -1,12 +1,13 @@
 .todoApp {
   background-color: var(--bg-card);
   color: var(--text-primary);
-  padding: 20px;
-  border-radius: 10px;
+  padding: 30px;
+  border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 500px;
-  transition: all 0.3s ease;
+  max-width: 550px;
+  transition: var(--transition);
+  position: relative;
 }
 
 .title {
@@ -18,31 +19,42 @@
 /* Элементы управления в шапке (поиск, фильтр, переключатель) */
 .searchContainer {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 30px;
   align-items: center;
 }
 
 .searchInput {
   flex-grow: 1;
-  padding: 10px;
+  padding: 12px 16px;
   border: 1px solid var(--border-color);
   background-color: var(--bg-input);
   color: var(--text-primary);
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
-  outline: none;
+  transition: border-color 0.2s;
 }
 
-.filterSelect,
-.modeToggle {
+.searchInput:focus {
+  border-color: var(--accent);
+}
+
+.filterSelect {
   padding: 10px 15px;
-  border-radius: 5px;
-  border: none;
-  background-color: #6a0dad;
-  color: white;
+  border-radius: 8px;
+  border: 1.5px solid var(--accent);
+  background-color: var(--bg-card); /* Фон как у карточки */
+  color: var(--accent); /* Текст фиолетовый */
   cursor: pointer;
-  font-size: 16px;
+  outline: none;
+  font-size: large;
+}
+
+.modeToggle {
+  min-width: 45px;
+  height: 45px;
+  padding: 0;
+  border-radius: 8px;
 }
 
 /* Стили для списка задач */
@@ -82,34 +94,28 @@
   color: var(--text-secondary);
 }
 
-.actionsContainer button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: 10px;
-  color: var(--text-secondary);
-  font-size: 18px;
-}
-
-.actionsContainer button:hover {
-  filter: brightness(1.2);
-}
-
 /* Кнопка добавления */
-.addButton {
-  width: 50px;
-  height: 50px;
+
+.floatingAddBtn {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background-color: #6a0dad;
-  color: white;
-  font-size: 30px;
-  border: none;
+  font-size: 32px;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(106, 13, 173, 0.4);
+  border: none;
   cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.floatingAddBtn:hover {
+  transform: scale(1.1) rotate(90deg); /* Крутой эффект при наведении */
+  background-color: var(--accent-hover);
 }

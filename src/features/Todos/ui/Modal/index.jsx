@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import style from './style.module.css';
+import { Button } from '../../../../shared/ui/Button';
 
 const Modal = ({ isOpen, onClose, onApply }) => {
   const [inputValue, setInputValue] = useState('');
@@ -18,15 +19,12 @@ const Modal = ({ isOpen, onClose, onApply }) => {
           onChange={(e) => setInputValue(e.target.value)}
         />
         <div className={style.modalActions}>
-          <button className={style.btnCancel} onClick={onClose}>
+          <Button variant="outline" onClick={onClose}>
             CANCEL
-          </button>
-          <button
-            className={style.btnApply}
-            onClick={() => onApply(inputValue)}
-          >
+          </Button>
+          <Button variant="primary" onClick={() => onApply(inputValue)}>
             APPLY
-          </button>
+          </Button>
         </div>
       </div>
     </div>
