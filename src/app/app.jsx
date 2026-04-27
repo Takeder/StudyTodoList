@@ -1,6 +1,5 @@
-import { createContext } from 'react';
 import Todos from '../features/Todos';
-import { ThemeProvider } from './themProvider';
+import { ThemeProvider } from './store/theme.provider';
 
 export const App = () => {
   return (

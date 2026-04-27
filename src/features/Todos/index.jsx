@@ -1,12 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 
 import { TodoList } from './ui/TodoList';
 
 import Modal from './ui/Modal';
+import { ThemeSwitcher } from './ui/ThemeSwitcher';
 import { Button } from '../../shared/ui/Button';
 
 import style from './style.module.css';
-import { useTheme } from '../../app/themProvider';
 
 import { changeFilter, searchTodos } from './lib';
 import { useTasks } from './model/hooks/useTasks';
@@ -18,7 +18,6 @@ function Todos() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
   const [editTaskValue, setEditTaskValue] = useState('');
-  const { theme, toggleTheme } = useTheme();
 
   const { tasks, isLoading, setTasks } = useTasks();
 
@@ -100,13 +99,7 @@ function Todos() {
           <option value="done">Выполненные</option>
           <option value="active">Невыполненные</option>
         </select>
-        <Button
-          variant="primary"
-          className={style.modeToggle}
-          onClick={toggleTheme}
-        >
-          {theme === 'light' ? '🌙' : '☀️'}
-        </Button>
+        <ThemeSwitcher />
       </div>
       {isLoading ? (
         <p>Загрузка</p>
